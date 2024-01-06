@@ -32,46 +32,24 @@ class Layer {
         this.y = 0;
         this.width = 2400;
         this.height = 700;
-        this.x2 = this.width;
         this.image = image;
         this.speedModifier = speedModifier;
         this.speed = globalGameSpeed * this.speedModifier;
     }
 
     update() {
-        /**
-         * To make sure the game speed is dynamic and always reacting to the current value
-         * of the global `gameSpeed` variable we need to recalculate the speed.
-         *
-         *          this.speed = gameSpeed * this.speedModifier;
-         *
-         * If we want the game to have never changing scrolling speed we DON'T need to do the above line of code.
-         */
         this.speed = globalGameSpeed * this.speedModifier;
-        /**
-         * If [this.x] is less or qeual to [-this.width] (-2400px) then set
-         * this.x to this.width plus offset it by the current position of the x2 minus this.speed
-         */
+
         if (this.x <= -this.width) {
-            this.x = this.width + this.x2 - this.speed;
+            this.x = 0;
         }
 
-        if (this.x2 <= -this.width) {
-            this.x2 = this.width + this.x - this.speed;
-        }
-        /**
-         * If they are not reseting we want the `x` property decrease by the amount of this.speed.
-         * To make the background layer move to the left we will wrap it in Math.floor to make sure
-         * that we dont get decimal points in there.
-         */
         this.x = Math.floor(this.x - this.speed);
-        this.x2 = Math.floor(this.x2 - this.speed);
-
     }
 
     draw() {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-        ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);
     }
 }
 
