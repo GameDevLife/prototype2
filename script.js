@@ -1,9 +1,19 @@
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 const CANVAS_WIDTH = canvas.width = 800;
-const CANVAS_HEIGHT = canvas.height = 700;
+const CANVAS_HEIGHT = canvas.height = 600;
 
 let globalGameSpeed = 5;
+
+const slider = document.getElementById("slider");
+slider.value = globalGameSpeed;
+const showGameSpeed = document.getElementById("showGameSpeed");
+showGameSpeed.innerText = globalGameSpeed;
+
+slider.addEventListener('change', function(e) {
+    globalGameSpeed = e.target.value;
+    showGameSpeed.innerText = globalGameSpeed;
+});
 
 const backgroundLayer1 = new Image();
 const backgroundLayer2 = new Image();
