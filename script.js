@@ -4,6 +4,7 @@ const CANVAS_WIDTH = canvas.width = 800;
 const CANVAS_HEIGHT = canvas.height = 600;
 
 let globalGameSpeed = 5;
+let gameFrame = 0;
 
 const slider = document.getElementById("slider");
 slider.value = globalGameSpeed;
@@ -39,12 +40,7 @@ class Layer {
 
     update() {
         this.speed = globalGameSpeed * this.speedModifier;
-
-        if (this.x <= -this.width) {
-            this.x = 0;
-        }
-
-        this.x = Math.floor(this.x - this.speed);
+        this.x = gameFrame * this.speed % this.width;
     }
 
     draw() {
@@ -68,6 +64,8 @@ function animate() {
         layer.draw();
         layer.update();
     });
+
+    gameFrame--;
 
     requestAnimationFrame(animate);
 }
